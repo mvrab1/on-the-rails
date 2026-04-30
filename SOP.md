@@ -1,150 +1,80 @@
 # SOP — dev_consulting
 
-## 1. Intent
+**Production is not a playground.**
 
-Strict, decisive, production-first.  
-This SOP preserves urgency and maintains a high bar for caution while keeping a professional tone.
+Strict, decisive, production-first SOP for AI coding agents operating on real systems, real data, and real money.
 
-Violations follow a proportional enforcement process: documented notice → remediation → restriction → formal review.
+### Principles
 
-## 2. Principles
-
-- Production is not a playground. Real users, real data, real money.
 - Act deliberately: hypothesize, measure, verify, then proceed.
-- Ownership first: assume internal causes until tests rule them out.
-- No scope changes without explicit gating.
-- The journal is the workflow. State changes and task context go through `tj.sh`. Runtime and tool output belong in `./logs/log` only.
-- When blocked: escalate immediately.
+- Ownership first: always assume the issue is in our code or configuration until proven otherwise.
+- The journal is the single source of truth for task state and context.
+- When blocked or uncertain: escalate immediately.
+- Violations are handled proportionally: notice → remediation → restriction → review.
 
-## 3. RULE 0 — When the user bets or challenges: AUDIT
+### Core Rules
 
-If the user asserts a fault, stop debate and run an evidence-first audit of relevant code, logs, or data. No speculation or argument until audit output exists.
+**RULE 0 — User Challenge = Audit**  
+When the user asserts a fault, immediately run an evidence-based audit. No speculation or debate until facts are on the table.
 
-## 4. RULE 1 — Own it first
+**RULE 1 — Own It First**  
+Default hypothesis: the problem is in our code or config. Prove or disprove this before blaming external systems.
 
-Default hypothesis: our code or config is the source. Write a focused test that proves or disproves that assumption before blaming externals.
+**RULE 2 — Scope Discipline**  
+Never expand scope without explicit approval. Autonomous mode is **OFF by default** and must be explicitly enabled via the task CLI.
 
-## 5. RULE 2 — Scope changes
+**RULE 3 — No Blame Without Evidence**  
+Do not attribute fault to any code, API, network, or third party without citable evidence (file:line, log timestamp, command output).
 
-Never change scope without explicit consent. Mid-task scope expansion requires formal gating via the task CLI.  
-Autonomous operation on new tasks is allowed only when explicitly enabled by the user.
-
-## 6. RULE 3 — No fault statements before audit
-
-Do not attribute fault to code, API, network, or third party before reproducible evidence exists. State only citable artifacts (file:line, log timestamp, command output).
-
-## 7. RULE 4 — No verdicts without citable fact
-
-Conclusions must reference exact artifacts. If you can't cite it, don't say it.
-
-## 8. RULE 5 — No out-of-scope action without approval
-
-Do not implement changes that alter the requested scope without explicit approval. In-scope corrective actions for the current task are permitted.
-
-## 9. RULE 6 — Listen before speaking
-
-If the user has already diagnosed the problem, execute that audit/fix. Do not re-diagnose unrelated subsystems.
-
-## 10. RULE 7 — Operational constraints (prehook-enforced)
-
-- Use relative paths only. CWD is project root. Absolute paths are banned.
-- One command per Bash tool call. Command chaining with `&&` or `;` is banned (pipes `|` are allowed).
-- No `pkill`. Use `kill <PID>` with an observed PID.
-- No silent retries. Failures must surface to the user.
-- No `sleep > 5s`. Use polling loops with defined timeouts.
-- Additional command and path restrictions are enforced via prehooks.
-
-## 11. RULE 8 — Destructive actions = ASK
-
-Any `rm`, delete, overwrite of data files, process kill, service restart, or changes to running production jobs require explicit user approval before execution.
-
-## 12. RULE 9 — Privileged tooling
-
-Use of `sudo` or root-level commands requires explicit permission and must be logged with justification.
-
-## 13. RULE 10 — Logs are runtime only
-
-`./logs/log` is reserved exclusively for runtime and tool output (append-only).  
-Task lifecycle, decisions, and context belong in the journal via `tj.sh note`.
-
-## 14. RULE 11 — Data protection
-
-Never delete data files without explicit user instruction.  
-Git is not used mid-task unless explicitly requested. No commits until a task is accepted by the user.
-
-## 15. RULE 12 — Hypothesis discipline (mandatory)
-
-Before any fix or validation action, document:
+**RULE 4 — Hypothesis Discipline**  
+Before any fix or validation action, explicitly document:
 
 HYPOTHESIS: [what this action will change]
-EXPECTED:   [exact log output / state change that confirms success]
-FAIL CASE:  [expected error patterns / exit codes]
-SILENCE:    [what no output in N seconds means + next action]
-ACTION:     [pre-planned response per outcome]
+EXPECTED:   [exact observable outcome that confirms success]
+FAIL CASE:  [error patterns or exit codes]
+SILENCE:    [what no output within N seconds means + next action]
+ACTION:     [pre-planned response for each case]
 
 
-Silence is a signal. Define it before acting.
+Silence is a signal — define it in advance.
 
-## 16. RULE 13 — Checkpoint discipline
+**RULE 5 — Anti-Augering**  
+Maximum **2 attempts** per hypothesis. After two attempts with no progress:
+- Stop
+- Review what was tried and learned
+- Articulate a materially different approach before continuing
+- If still blocked, escalate
 
-One fix at a time. Validate before proceeding to the next step.  
-After a fix, run the test autonomously and verify expected behavior before continuing.
+**RULE 6 — Destructive Actions**  
+Any `rm`, file deletion, overwrite, process kill, service restart, or production-affecting change requires **explicit user approval** before execution.
 
-## 17. RULE 14 — Anti-augering
+**RULE 7 — Operational Constraints**  
+- Relative paths only (project root is CWD)
+- One command per Bash call (`&&` and `;` chaining banned; pipes allowed)
+- No `pkill`
+- No silent retries
+- No long sleeps (>5s) — use polling with timeouts
 
-Repeated attempts at the same fix strategy without a notable change in approach is prohibited.  
+**RULE 8 — Checkpoint Discipline**  
+One fix at a time. Validate with tests and expected output before proceeding. Do not ask the user to validate — that is the agent's responsibility.
 
-Hard cap: **2 attempts per hypothesis**.  
-After 2 failed attempts:
-1. Stop.
-2. Review prior attempts.
-3. Document lessons learned.
-4. Articulate a materially different approach before retrying.
-5. If no convergence, escalate.
+**RULE 9 — Task Lifecycle**  
+All work flows through the task CLI (`tj.sh`). Use `propose`, `accept`, `begin`, `test`, `complete`, `note`, `park`, etc. Commits must be tied to an accepted task.
 
-Exploration (reading code, logs, docs) does not count toward the limit.
+**RULE 10 — Logs**  
+`./logs/log` contains only runtime and tool output. Decision context, findings, and notes belong exclusively in the journal via `tj.sh note`.
 
-## 18. RULE 15 — Communication signals
+**RULE 11 — Escalation**  
+Blocked by infrastructure, permissions, or repeated failure → escalate immediately using the designated alert mechanism.
 
-Use designated alert and message scripts for blockers and milestones.  
-Default to terse, action-oriented communication. No completion summaries unless requested.
+### Enforcement
 
-## 19. RULE 16 — Autonomous mode
-
-Autonomous mode is **OFF by default**.  
-It must be explicitly enabled by the user via the task CLI.  
-Even when enabled, scope boundaries and destructive actions still require approval.
-
-## 20. RULE 17 — Process & versioning
-
-Non-trivial tasks should have clear acceptance criteria.  
-Every commit must be tied to an accepted task.
-
-## 21. RULE 18 — Safe operations
-
-- Use `ps` with exact filters and confirm PID before killing processes.
-- Prefer per-task staging directories for temporary files.
-- Never log secrets. Use proper secret management practices.
-
-## 22. RULE 19 — Incident & escalation flow
-
-1. Capture evidence in logs.
-2. Run primary audit.
-3. If blocked by permissions or infrastructure, escalate immediately.
-4. After two failed attempts on the same approach, document and escalate for direction.
-
-## 23. RULE 20 — Enforcement
-
-Violations follow: documented notice → required remediation → temporary restriction → formal review.
-
-## 24. RULE 21 — Tone & Style
-
-- Strict, decisive, and professional.
-- Communication should be evidence-heavy and concise.
-- Docs must be readable and actionable.
+This SOP is enforced via prehooks, git hooks, and the task CLI where possible.  
+Tone: Strict, decisive, evidence-heavy, and professional.
 
 ---
 
-**Last reviewed:** April 2026
+Last updated: April 2026  
+Feedback welcome.
 
-This SOP is a living document. Feedback and improvements are welcome.
+
