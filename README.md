@@ -2,72 +2,46 @@
 
 **Production is not a playground.**
 
-A hardened SOP for running **production-first AI coding agents** with strict guardrails, hypothesis discipline, and mechanical enforcement.
+A hardened Standard Operating Procedure (SOP) for running high-stakes AI coding agents in real production environments.
 
-Real users. Real data. Real money.
+### Philosophy
 
-### Why This SOP
-
-Most AI coding agents are given vague instructions and long prompts.  
-This repo takes a different path: **strict, decisive rules** backed by operational discipline to make the agent behave like a responsible senior engineer — reducing loops, scope creep, and silent failures.
+This SOP treats AI coding agents as trusted but **strictly governed** collaborators — not casual assistants.  
+It is designed for situations where real users, real data, and real money are at stake.
 
 ### Key Features
 
-- Ownership-first bias: always assume our code/config is the problem until tests rule it out
-- Mandatory structured hypothesis + expected outcome + silence handling before any fix
-- Hard **anti-augering** rule (max 2 attempts per approach, then forced strategy change)
-- Autonomous mode **OFF by default** — requires explicit user opt-in
+- Strong ownership bias (“our code/config is the problem until proven otherwise”)
+- Mandatory structured hypothesis before every fix
+- Hard anti-augering rule (max 2 attempts per approach, then forced strategy change)
+- Autonomous mode **OFF by default**
 - Explicit approval required for all destructive and privileged actions
-- Clear separation between runtime logs and decision/journal context
 
-Designed for serious devopment and internal platform teams that demand high reliability from their AI agents.
+### Enforcement Model
+
+What makes this SOP effective is its **layered enforcement**:
+
+- **Pre-action hooks** in the Claude CLI enforce command hygiene, path restrictions, destructive action gates, and other operational constraints.
+- **Git pre-commit hooks** ensure commits are tied to accepted tasks and protect sensitive files.
+- The combination of strict rules + mechanical guardrails dramatically reduces loops, scope creep, and silent failures.
 
 ### Contents
 
 - **[SOP.md](SOP.md)** — Full detailed Standard Operating Procedure
-- **[AGENTS.md](AGENTS.md)** — Concise instruction set for the AI agent
+- **[AGENTS.md](AGENTS.md)** — Concise rules optimized for the AI agent to follow directly
 - **[tj.sh.CLI.md](tj.sh.CLI.md)** — Task CLI reference (for implementing similar workflow tooling)
 
 ### How to Use
 
-Read the SOP first, then adapt the principles and guardrails to your own AI coding setup (Claude Code, Cursor, Aider, etc.).
+1. Read **[SOP.md](SOP.md)** for the complete rule set.
+2. Use **[AGENTS.md](AGENTS.md)** as the core instruction set when configuring your AI coding agent.
+3. Adapt the principles and especially the **pre-action hooks + git hook** approach to your own environment.
+
+Best suited for production dev consulting, internal platform work, or any team that wants AI agents to operate with high reliability and low risk.
 
 ---
 
-Feedback welcome — especially from others building production-grade AI agents.# On The Rails
+**Feedback welcome**  
+If you're running AI agents in serious production settings, I'd love to hear what enforcement mechanisms you consider essential.
 
-**Production is not a playground.**
-
-A hardened SOP for running production-first AI coding agents with strict guardrails, hypothesis discipline, and mechanical enforcement.
-
-Real users. Real data. Real money.
-
-### Why This Exists
-
-Most AI agents run with loose prompts.  
-This repo enforces **strict, decisive, and mechanically supported** rules so the agent behaves like a careful, high-ownership senior engineer — minimizing loops, scope creep, and overconfident mistakes.
-
-### Core Strengths
-
-- Ownership-first mindset (assume our code is the problem)
-- Mandatory structured hypothesis before every fix
-- Hard anti-augering rule (max 2 attempts per approach)
-- Autonomous mode **OFF by default**
-- Explicit approval required for destructive or privileged actions
-- Strong separation of runtime logs vs decision journal
-
-Best suited for production dev consulting and internal platform work where safety and reliability matter more than raw speed.
-
-### Contents
-
-- **[SOP.md](SOP.md)** — Full detailed Standard Operating Procedure
-- **[AGENTS.md](AGENTS.md)** — Concise rules optimized for the agent to read directly
-- **[tj.sh.CLI.md](tj.sh.CLI.md)** — Task CLI reference
-
-### How to Use
-
-Read the SOP, then adapt the principles and guardrails to your own AI coding setup (Claude Code, Cursor, Aider, etc.).
-
----
-
-**Feedback welcome** — especially from others running agents in serious production environments.
+Made with rigor.
