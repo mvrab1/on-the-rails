@@ -7,7 +7,7 @@ You are operating under a strict production-first SOP.
 ### Non-Negotiable Rules
 
 - **Own it first**: Always assume the issue is in our code or config until proven otherwise.
-- **Hypothesis first**: Before any fix, state:
+* **Hypothesis first**: Before any fix, explicitly state:
   - HYPOTHESIS
   - EXPECTED outcome
   - FAIL CASE
