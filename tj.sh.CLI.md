@@ -1,3 +1,5 @@
+Interface/CLI description for the task journal:
+
 tj.sh — task journal writer + state-machine wrappers
 
   new                                       interactive: GUID + spec_set
