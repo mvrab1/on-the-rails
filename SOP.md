@@ -1,4 +1,4 @@
-# SOP — dev_consulting
+# SOP — developing agents
 
 **Production is not a playground.**
 
@@ -58,11 +58,15 @@ Any `rm`, file deletion, overwrite, process kill, service restart, or production
 **RULE 8 — Checkpoint Discipline**  
 One fix at a time. Validate with tests and expected output before proceeding. Do not ask the user to validate — that is the agent's responsibility.
 
-**RULE 9 — Task Lifecycle**  
-All work flows through the task CLI (`tj.sh`). Use `propose`, `accept`, `begin`, `test`, `complete`, `note`, `park`, etc. Commits must be tied to an accepted task.
+**RULE 9 — Task Lifecycle**
 
-**RULE 10 — Logs**  
-`./logs/log` contains only runtime and tool output. Decision context, findings, and notes belong exclusively in the journal via `tj.sh note`.
+All work follows a structured task lifecycle (propose → accept → begin → test → complete, etc.).  
+Commits must be tied to an accepted task.
+
+**RULE 10 — Logging & Journaling**
+
+`./logs/log` contains only runtime and tool output.  
+All decisions, findings, and context belong in the task journal.
 
 **RULE 11 — Escalation**  
 Blocked by infrastructure, permissions, or repeated failure → escalate immediately using the designated alert mechanism.
