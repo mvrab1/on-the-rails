@@ -1,59 +1,42 @@
 # On The Rails
 
-A battle-tested Standard Operating Procedure (SOP) for running high-stakes AI coding agents in production environments.
+**Production is not a playground.**
 
-**"Production is not a playground."**
+A hardened Standard Operating Procedure (SOP) for running high-stakes AI coding agents in real production environments.
 
-Real users. Real data. Real money.
+### Philosophy
 
-### Why This SOP Exists
+This SOP treats AI coding agents as trusted but strictly governed engineers — not casual assistants.
 
-Most AI coding agents are given loose instructions and a long prompt.  
-This repo takes a different approach: **strict, decisive, and mechanically enforced** rules designed to make AI agents behave like a careful, high-ownership senior engineer — while dramatically reducing common failure modes like augering, scope creep, and overconfident mistakes.
+It enforces discipline around:
+- Ownership and root-cause bias
+- Hypothesis-driven fixes
+- Anti-augering (no repeated failed attempts)
+- Strict scope control
+- Mechanical safety guardrails
 
-### Core Principles
+### Core Highlights
 
-- Default to **ownership**: Always assume the issue is in our code or config until proven otherwise.
-- **Hypothesis discipline**: Every fix must be preceded by a clear hypothesis, expected outcome, failure criteria, and silence handling.
-- **Anti-augering**: Hard limit of 2 attempts per approach — then a forced change in strategy.
-- **Scope control**: No scope changes without explicit approval. Autonomous mode is **off by default**.
-- **Safety first**: Destructive actions, privileged commands, and production-affecting changes require explicit user approval.
-- Strong mechanical guardrails via prehooks, git hooks, and protected file handling.
+- **Own It First**: Always assume the problem is in our code/config until proven otherwise.
+- **Hypothesis Discipline**: Every fix requires explicit hypothesis, expected outcome, failure criteria, and silence handling.
+- **Anti-Augering Rule**: Hard cap of 2 attempts per approach — then forced strategy change.
+- **Autonomous Mode OFF by default** — explicit opt-in only.
+- **Destructive Actions** require explicit user approval.
+- Strong preference for evidence over speculation.
 
-### Key Features of This SOP
+Designed for production-first dev consulting and internal platform work where reliability matters more than speed.
 
-- Structured hypothesis → action → verification workflow
-- One fix at a time with mandatory checkpoints
-- Clear escalation paths for blockers
-- Strict separation between runtime logs and decision/journal context
-- Proportional enforcement for SOP violations
+### Files
 
-This SOP is particularly suited for **production-first dev consulting**, internal platform work, or any environment where reliability and caution matter more than speed.
+- **[SOP.md](SOP.md)** — Full detailed Standard Operating Procedure
+- **[AGENTS.md](AGENTS.md)** — Concise rules for direct agent consumption
+- **[tj.sh.CLI.md](tj.sh.CLI.md)** — Task CLI reference
 
-### Repository Structure
+### Who Should Use This
 
-- `SOP.md` — The full Standard Operating Procedure (the heart of the repo)
-- `AGENTS.md` — (optional) Lightweight version for direct agent consumption
-- `examples/` — Hypothesis templates, escalation examples, etc.
-
-### How to Use
-
-1. Read the full SOP in [SOP.md](https://github.com/mvrab1/on-the-rails/blob/main/SOP.md)
-2. Adapt the rules to your environment
-3. Use the principles and guardrails when configuring your AI coding agent (Claude Code, Cursor, Aider, etc.)
-
-### Who This Is For
-
-- Engineers and teams running AI agents on real production systems
-- Anyone tired of agents looping, hallucinating fixes, or quietly breaking things
-- Developers who want to treat AI agents as **trusted but strictly governed** collaborators
+Teams and individuals running AI agents (Claude Code, Cursor, Aider, etc.) on real systems with real consequences.
 
 ---
 
-**Feedback and contributions welcome.**
-
-If you're running AI agents in serious environments, I'd love to hear what rules you consider non-negotiable.
-
----
-
-Made with rigor.    
+**Feedback welcome.**  
+If you're building or running production AI agents, I'd love to hear what rules you consider non-negotiable.
