@@ -38,7 +38,7 @@ This SOP is particularly suited for **production-first dev consulting**, interna
 
 ### How to Use
 
-1. Read the full SOP in [`SOP.md`](SOP.md)
+1. Read the full SOP in [SOP.md](https://github.com/mvrab1/on-the-rails/blob/main/SOP.md)
 2. Adapt the rules to your environment
 3. Use the principles and guardrails when configuring your AI coding agent (Claude Code, Cursor, Aider, etc.)
 
